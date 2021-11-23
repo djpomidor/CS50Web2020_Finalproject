@@ -8,7 +8,7 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username}"
 
-class Employees(models.Model):
+class Employee(models.Model):
     first_name = models.CharField(max_length=64)
     middle_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
@@ -16,7 +16,7 @@ class Employees(models.Model):
     phone_number = models.IntegerField()
     email = models.CharField(max_length=64)
 
-class Customers(models.Model):
+class Customer(models.Model):
     customer_name = models.CharField(max_length=64)
     contact_name = models.CharField(max_length=16)
     email = models.CharField(max_length=64)
@@ -24,3 +24,9 @@ class Customers(models.Model):
     city = models.CharField(max_length=25)
     postal_code = models.IntegerField(max_length=6)
     country = models.CharField(max_length=56)
+
+class Order(models.Model):
+    number = models.IntegerField()
+    type = models.CharField(max_length=16)
+    title = models.CharField(max_length=16)
+    amount = models.IntegerField()

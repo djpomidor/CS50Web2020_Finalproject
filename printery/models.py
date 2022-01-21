@@ -24,6 +24,8 @@ class Company(models.Model):
     postal_code = models.IntegerField()
     country = models.CharField(max_length=56)
     email = models.CharField(max_length=64)
+    is_manufacturer = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=False)
 
 
 class Order(models.Model):
@@ -80,3 +82,6 @@ class Paper(models.Model):
         choiced=TYPE_CHOICES,
         )
     density = models.IntegerField()
+    width = models.IntegerField()
+    height = models.IntegerField()
+    manufacturer = models.ManyToManyField(Company,blank=True, related_name="made_by")

@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 class User(AbstractUser):
-    phone_number = models.IntegerField()
-    company = models.ForeignKey('Company', on_delete=models.CASCADE)
+    phone_number = models.IntegerField(null=True, blank=True)
+    company = models.ForeignKey('Company', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.username}"
@@ -27,17 +27,32 @@ class Company(models.Model):
     is_manufacturer = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
 
+class Paper(models.Model):
+    name = models.CharField(max_length=64)
+    TYPE_CHOICES = [
+        ('GL', 'Glossy'),
+        ('MAT', 'Matte'),
+        ('OFF', 'Offset'),
+    ]
+    type = models.CharField(max_length=3,
+        choices=TYPE_CHOICES,
+        )
+    density = models.IntegerField()
+    width = models.IntegerField()
+    height = models.IntegerField()
+    manufacturer = models.ManyToManyField(Company, blank=True, related_name="made_by")
+
 
 class Order(models.Model):
     number = models.IntegerField()
     owner = models.ManyToManyField(User, blank=True, related_name="order_owners")
     BOOK = 'BK'
-    CALENDR = 'CL'
+    CALENDAR = 'CL'
     MAGAZINE = 'MZ'
     TYPE_CHOICES = [
         (BOOK, 'Book'),
         (CALENDAR, 'Calendar'),
-        (MAGZAINE, 'Magazine'),
+        (MAGAZINE, 'Magazine'),
     ]
     type = models.CharField(
         max_length=2,
@@ -51,12 +66,12 @@ class Order(models.Model):
         ('HAR', 'Hardcover'),
         ('FOL', 'Folding'),
     ]
-    binding_style = models.CharField(
+    binding_style = models.CharField(blank=True,
         max_length=3,
         choices=BINDING_STYLE_CHOICES,
         )
     final_width = models.IntegerField()
-    final_height = models.IntegerField()
+    final_height = models.IntegerField(blank=True)
     num_pages_in_block = models.IntegerField()
     num_pages_in_cover = models.IntegerField()
     num_pages_in_insert = models.IntegerField()
@@ -67,21 +82,6 @@ class Order(models.Model):
         ('MAT', 'Matte'),
         ('GL', 'Glossy'),
     ]
-    laminat = models.CharField(max_length=3,
-        choiced=LAMINATE_CHOICES,
+    laminat = models.CharField(blank=True, max_length=3,
+        choices=LAMINATE_CHOICES,
         )
-
-class Paper(models.Model):
-    name = models.CharField(max_length=64)
-    TYPE_CHOICES = [
-        ('GL', 'Glossy'),
-        ('MAT', 'Matte'),
-        ('OFF', 'Offset'),
-    ]
-    type = models.CharField(max_length=3,
-        choiced=TYPE_CHOICES,
-        )
-    density = models.IntegerField()
-    width = models.IntegerField()
-    height = models.IntegerField()
-    manufacturer = models.ManyToManyField(Company,blank=True, related_name="made_by")

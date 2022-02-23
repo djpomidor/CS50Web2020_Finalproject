@@ -1,30 +1,34 @@
 {% extends "printery/layout.html" %}
 
 {% block body %}
-
-    <h2>Register</h2>
-
+    <div class="text-center">
     {% if message %}
-        <div>{{ message }}</div>
+        <div class="alert alert-warning" role="alert">{{ form.username.errors }} {{ form.confirmation.errors }}</div>
     {% endif %}
-
+    <div class="form-signin">
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+        <h1 class="h3 mb-3 fw-normal">Register</h1>
+        <div class="form-floating">
+            {{ form.username }}
+            <label for="floatingInput">Username</label>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        <div class="form-floating">
+            {{ form.email }}
+            <label for="floatingInput">Email Address</label>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+        <div class="form-floating">
+            {{ form.password }}
+            <label for="floatingInput">Password</label>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        <div class="form-floating">
+            {{ form.confirmation }}
+            <label for="floatingInput">Confirm Password</label>
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-
+  </div>
+</div>
 {% endblock %}

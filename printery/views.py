@@ -7,9 +7,10 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
+from django import forms
 
-from .models import User
 from printery.models import *
+from printery.forms import *
 
 # Create your views here.
 
@@ -31,10 +32,12 @@ def login_view(request):
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "printery/login.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid username and/or password.", "form": UserForm()
             })
     else:
-        return render(request, "printery/login.html")
+        return render(request, "printery/login.html", {
+        "form": UserForm()
+        })
 
 
 def logout_view(request):
@@ -44,26 +47,18 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
-
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            return render(request, "printery/register.html", {
-                "message": "Passwords must match."
-            })
-
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(username, email, password)
+        user_form = UserForm(data=request.POST)
+        if user_form.is_valid():
+            user = user_form.save(commit=False)
+            user.set_password(user.password)
             user.save()
-        except IntegrityError:
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
             return render(request, "printery/register.html", {
-                "message": "Username already taken."
+                "message": user_form.errors, 'form': user_form
             })
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "printery/register.html")
+        return render(request, "printery/register.html", {
+        "form": UserForm()
+        })

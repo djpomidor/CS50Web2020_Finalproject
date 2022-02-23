@@ -1,10 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 # Create your models here.
 class User(AbstractUser):
     phone_number = models.IntegerField(null=True, blank=True)
     company = models.ForeignKey('Company', null=True, blank=True, on_delete=models.CASCADE)
+    is_customer = models.BooleanField(default=False)
+    is_employee = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.username}"

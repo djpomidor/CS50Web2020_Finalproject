@@ -8,6 +8,8 @@
         <title>{% block title %}Printery{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'printery/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'printery/css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'printery/css/sidebars.css' %}">
+
         {% block script %}
         <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
@@ -37,15 +39,12 @@
       </ul>
     </div>
   </nav>
-
-
         <div class="container">
-            {% block main %}
+            {% block body %}
             {% endblock %}
         </div>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-
-        </nav>
+        <script src="{% static 'printery/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'printery/js/sidebars.js' %}"></script>
     </body>
 </html>

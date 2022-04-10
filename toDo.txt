@@ -1,0 +1,26 @@
+Клиентская часть:
+
+1.Страница заказа.
+  1.1 Создать заказ.
+  1.2 Мои заказы.
+        Текущие.
+        Готовые.
+  1.3 Сообщения.
+  1.4 Настройки.
+
+2.Страница Новый заказ.
+  1.
+  name
+
+Order:
+pages in block
+pages_in_cover
+pages_in_insert
+
+type_of_paper_in_block
+type_of_paper_in_cover
+type_of_paper_in_insert
+
+color_of_block
+color_of_cover
+color_of_insert

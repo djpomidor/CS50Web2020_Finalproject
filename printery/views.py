@@ -135,3 +135,16 @@ def create_order(request):
             'order_form': OrderForm(),
             'parts_form': PartsFormSet(queryset=Part.objects.none()),
         })
+
+####################################################################
+
+@csrf_exempt
+@login_required
+def orders_view(request, order_number):
+    try:
+        order = Order.objects.get(owner=request.user, number=order_number)
+    except Order.DoesNotExist:
+        return JsonResponse({"error": "Order not found."}, status=404)
+
+    if request.method == "GET":
+        return JsonResponse(order.serialize())

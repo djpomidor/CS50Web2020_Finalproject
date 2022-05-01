@@ -107,24 +107,23 @@ class Order(models.Model):
     binding = models.CharField(blank=True, max_length=4, choices=BINDING_CHOICES,)
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
-
-    # block = models.ForeignKey('Part', on_delete=models.CASCADE, related_name="block_order", null=True)
-    # cover = models.ForeignKey('Part', on_delete=models.CASCADE, related_name="cover_order", null=True)
-    # insert = models.ForeignKey('Part', on_delete=models.CASCADE, related_name="insert_order", null=True)
-    #
-    # pages_in_block = models.IntegerField(null=True, blank=True)
-    # pages_in_cover = models.IntegerField(null=True, blank=True)
-    # pages_in_insert = models.IntegerField(null=True, blank=True)
-    # paper_block = models.ForeignKey(Paper, on_delete=models.CASCADE, related_name="block_paper", null=True, blank=True)
-    # paper_cover = models.ForeignKey(Paper, on_delete=models.CASCADE, related_name="cover_paper", null=True, blank=True)
-    # paper_insert = models.ForeignKey(Paper, null=True, on_delete=models.CASCADE, related_name="insert_paper", blank=True)
-    #
-
-
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
 #    def __str__(self):
 #        return f"{self.number} {self.name}"
+
+    def serialize(self):
+        return {
+            "number": self.number,
+            "name": self.name,
+            "owner": [user.last_name for user in self.owner.all()],
+            "type": self.type,
+            "circulation": self.circulation,
+            "binding": self.binding,
+            "width": self.width,
+            "height": self.height,
+            "created": self.created.strftime("%b %d %Y, %I:%M %p"),
+        }
 
 
 ######################################################################################

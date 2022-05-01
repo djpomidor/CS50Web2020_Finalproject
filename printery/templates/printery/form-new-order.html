@@ -63,10 +63,14 @@
 
             {{ parts_form.management_form }}
             {% for form in parts_form %}
-            <div class="" id="">
-            <div class="card animaited">
-              <button type="button" class="part-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="collapse show" id="partCard-{%  cycle '1' '2' '3' %}">
+            <div class="card " >
+              <div>
+                <!-- <button type="button" class="part-btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+              </div>
             <div class="card-body pb-0">
+              <button type="button" class="part-btn-close float-end" data-bs-toggle="collapse" data-bs-target="#partCard-{%  cycle '1' '2' '3' %}" aria-expanded="true" aria-controls="partCard-{%  cycle '0' '1' '2' %}"></button>
+
               <div class="d-flex justify-content-between">
                 <h5 style="text-align: center;">
                   {% cycle 'Block' 'Cover' 'Insert' %}

@@ -9,4 +9,6 @@ urlpatterns = [
     path("user-cabinet", views.user_cabinet_view, name="user-cabinet"),
     path("backside", views.backside, name="backside"),
     path("create-order", views.create_order, name="create-order"),
+
+    path("orders/<int:order_number>", views.orders_view, name="orders-view"),
 ]

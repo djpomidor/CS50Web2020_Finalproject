@@ -1,14 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
   let closebtns = document.querySelectorAll(".part-btn-close");
   for (var i = 0; i < closebtns.length; i++) {
-    closebtns[i].addEventListener("click", function()  {
-      // Find what was clicked on
-      // const element = event.target;
-      this.parentElement.style.animationPlayState = 'running';
-        this.parentElement.addEventListener('animationend', () => {
-          this.parentElement.remove()
-      });
-    });
+    // closebtns[i].addEventListener("click", function()  {
+    //   // Find what was clicked on
+    //   // const element = event.target;
+    //
+    //   // this.parentElement.style.animationPlayState = 'running';
+    //   //   this.parentElement.addEventListener('animationend', () => {
+    //       this.parentElement.parentElement.remove()
+    //   // });
+    // });
   };
     array = ['BLO', 'COV', 'INS'];
 

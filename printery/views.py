@@ -77,7 +77,8 @@ def register(request):
 
 @login_required(redirect_field_name='index')
 def user_cabinet_view(request):
-    return render(request, "printery/user-cabinet.html")
+    return render(request, "printery/user-cabinet.html", {
+    })
 
 @login_required(redirect_field_name='index')
 def backside(request):
@@ -119,11 +120,14 @@ def create_order(request):
 
             instances = formset.save(commit=False)
             for instance in instances:
-                print(">>>>>>>>>", instance)
                 instance.order_id = order.id
                 instance.save()
 
-            return HttpResponseRedirect(reverse("user-cabinet"))
+            # return HttpResponseRedirect(reverse("user-cabinet"))
+            return render(request, "printery/create-order.html", {
+                'order_form': OrderForm(),
+                "successful_submit": True,
+            })
         else:
             return render(request, "printery/create-order.html", {
                 "message": order_form.errors, 'order_form': order_form,

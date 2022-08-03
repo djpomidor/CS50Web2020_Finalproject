@@ -3,7 +3,7 @@
 {% block body %}
     <div class="text-center">
     {% if message %}
-        <div class="alert alert-warning" role="alert">{{ order_form.errors }} </div>
+        <div class="alert alert-warning" role="alert">{{ user_form.errors }} </div>
     {% endif %}
     <div class="form-signin">
     <form action="{% url 'register' %}" method="post">
@@ -13,10 +13,10 @@
             {{ user_form.username }}
             <label for="floatingInput">Username</label>
         </div>
-        <!-- <div>
+        <div>
         {{ user_form.company }}
         <label for="floatingInput">Username</label>
-        </div> -->
+        </div>
         <div class="form-floating">
             {{ user_form.email }}
             <label for="floatingInput">Email Address</label>

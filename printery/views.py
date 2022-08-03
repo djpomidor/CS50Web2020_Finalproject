@@ -90,10 +90,8 @@ def create_order(request):
     if request.method == "POST":
         order_form = OrderForm(data=request.POST)
         formset = PartsFormSet(request.POST)
-        # print(">>>>>>>>>", formset)
-
+        
         if all([order_form.is_valid(), formset.is_valid()]):
-            # print('!!!!!!!!', formset)
             for form in formset:
                 # fields = form.cleaned_data
                 # print ("QQQQQQQQQQQ", form['part_name'])
@@ -125,13 +123,16 @@ def create_order(request):
 
             # return HttpResponseRedirect(reverse("user-cabinet"))
             return render(request, "printery/create-order.html", {
-                'order_form': OrderForm(),
+                'order_form': order_form,
+                'parts_form': formset,
                 "successful_submit": True,
             })
         else:
             return render(request, "printery/create-order.html", {
-                "message": order_form.errors, 'order_form': order_form,
-                "message_parts": formset.non_form_errors, "parts_form": formset
+                "message": order_form.errors,
+                "message_parts": formset.non_form_errors,
+                "order_form": order_form,
+                "parts_form": formset
             })
     else:
 

@@ -46,6 +46,7 @@ class Company(models.Model):
 class Paper(models.Model):
     name = models.CharField(max_length=64)
     TYPE_CHOICES = [
+        (None, 'Select...'),
         ('GL', 'Glossy'),
         ('MAT', 'Matte'),
         ('OFF', 'Offset'),
@@ -87,7 +88,7 @@ class Order(models.Model):
     NEWSPAPER = 'NP'
     FLYERS = 'FL'
     TYPE_CHOICES = [
-        (None, ""),
+        (None, "Select..."),
         (BOOK, 'Book'),
         (CALENDAR, 'Calendar'),
         (MAGAZINE, 'Magazine'),
@@ -108,6 +109,7 @@ class Order(models.Model):
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
+    delivery_date = models.DateTimeField(null=True)
 
 #    def __str__(self):
 #        return f"{self.number} {self.name}"
@@ -139,6 +141,7 @@ class Part(models.Model):
     pages = models.IntegerField(null=True, blank=True)
     paper = models.ForeignKey(Paper, null=True, on_delete=models.CASCADE, related_name="paper", blank=True)
     COLOR_CHOICES = [
+        (None, 'Select...'),
         ('4_4', '4+4'),
         ('4_0', '4+0'),
 
@@ -146,6 +149,7 @@ class Part(models.Model):
     color = models.CharField(blank=True, max_length=3, choices=COLOR_CHOICES)
 
     LAMINATE_CHOICES = [
+        (None, 'Select...'),
         ('MAT', 'Matte'),
         ('GL', 'Glossy'),
     ]

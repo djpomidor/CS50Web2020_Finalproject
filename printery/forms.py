@@ -154,7 +154,7 @@ class OrderPartsForm(ModelForm):
         fields = ['part_name', 'pages', 'paper', 'color', 'laminate']
         widgets = {
             'part_name': TextInput(attrs={
-                'type': "text",
+                'type': "hidden",
                 'class': "form-select",
                 'name': "part_name",
                 'placeholder': "Aaaa",

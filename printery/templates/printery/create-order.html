@@ -55,17 +55,14 @@
 
                       <h4>Order Details</h4>
                         <hr>
-                          <p><span class="font-bold">Order ID: #</span>123</p>
-                          <p><span class="font-bold">Type: #</span>123</p>
-                          <p><span class="font-bold">Width (mm): #</span>123</p>
-                          <p><span class="font-bold">Height (mm): #</span>123</p>                          
-                          <p><span class="font-bold">Circulation: #</span>123</p>
-                          <p><span class="font-bold">Binding: #</span>123</p>
-                          <p><span class="font-bold">Width (mm): #</span>123</p>
-                          <p><span class="font-bold">Height (mm): #</span>123</p>
-                          <p><span class="font-bold">Date of delivery: #</span>123</p>
-                    <!-- </div> -->
-                      <div>
+                          <p><span class="font-bold">Order ID: #</span>{{ new_order.number }}</p>
+                          <p><span class="font-bold">Type: </span>{{ new_order.get_type_display }}</p>
+                          <p><span class="font-bold">Finish size (mm): </span>{{ new_order.width }} x {{new_order.height}}</p>
+                          <p><span class="font-bold">Circulation: </span>{{ new_order.circulation }}</p>
+                          <p><span class="font-bold">Binding: </span>{{ new_order.grt_binding_display }}</p>
+                          <p><span class="font-bold">Date of delivery: </span>123</p>
+                    <!-- </div>
+                       <div>
                           <div class="input-group input-group-inline">
                               <input type="email" class="form-control" placeholder="username" value="https://" /> <span class="input-group-text"><i class="bi bi-clipboard"></i></span>
                           </div>
@@ -97,7 +94,15 @@
                           window.location.href = "/user-cabinet";
                   });
                   // https://getbootstrap.com/docs/5.0/components/modal/#show
-                  successModal.show();
+                  fetch('/orders/' + 196)
+                  .then(response => response.json())
+                  .then(order => {
+                    console.log(order);
+                    alert("I am an alert box!");
+                    successModal.show();
+                  })
+
+
                 })
               </script>
           {%  endif %}

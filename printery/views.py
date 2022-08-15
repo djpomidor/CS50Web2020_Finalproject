@@ -84,33 +84,19 @@ def user_cabinet_view(request):
 def backside(request):
     return render(request, "printery/backside.html")
 
+################################################################################
+
 @login_required(redirect_field_name='index')
 def create_order(request):
     PartsFormSet = modelformset_factory(Part, form=OrderPartsForm, fields=('part_name', 'pages', 'paper', 'color', 'laminate'),max_num=3, extra=3)
     if request.method == "POST":
         order_form = OrderForm(data=request.POST)
         formset = PartsFormSet(request.POST)
-        
+
         if all([order_form.is_valid(), formset.is_valid()]):
             for form in formset:
-                # fields = form.cleaned_data
-                # print ("QQQQQQQQQQQ", form['part_name'])
-                # x = ""
-                # for k, v in form.fields():
-                #     if v != "" or "None" and k != 'part_name':
-                #         break
-                #     else:
-                #         x = k[v]
-                #         print("kkkkk___", x)
-                # if x ==  "" or "None" and fields['part_name'] == 'Null':
-
-                form.cleaned_data['part_name'] = "dfgdfgd"
-                print('!!!!!!!!', form.fields['part_name'])
                 form.save(commit=False)
             formset.save(commit=False)
-            print('!3!3!3!3!3!3!!', form.fields['part_name'])
-
-
             order = order_form.save(commit=False)
             order.save()
             order.owner.add(request.user.id)
@@ -121,16 +107,16 @@ def create_order(request):
                 instance.order_id = order.id
                 instance.save()
 
-            # return HttpResponseRedirect(reverse("user-cabinet"))
             return render(request, "printery/create-order.html", {
                 'order_form': order_form,
                 'parts_form': formset,
                 "successful_submit": True,
+                "new_order": order,
             })
         else:
             return render(request, "printery/create-order.html", {
                 "message": order_form.errors,
-                "message_parts": formset.non_form_errors,
+                "message_parts": formset.errors,
                 "order_form": order_form,
                 "parts_form": formset
             })

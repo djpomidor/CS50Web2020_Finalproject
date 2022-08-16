@@ -6,12 +6,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
       <title>{% block title %}Printery{% endblock %}</title>
-      <link rel="stylesheet" href="{% static 'printery/bootstrap.min.css' %}">
+      <!-- <link rel="stylesheet" href="{% static 'printery/bootstrap.min.css' %}"> -->
       <link rel="stylesheet" href="{% static 'printery/css/styles.css' %}">
 
       <link rel="stylesheet" href="{% static 'printery/css/bootstrap-icons.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'printery/css/main.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'printery/css/utilities.css' %}">
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> -->
 
       {% block script %}
       <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
@@ -121,7 +122,13 @@
     </div>
 
       {% endif %}
-      <script src="{% static 'printery/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
       <!-- <script src="{% static 'printery/js/main.js' %}"></script> -->
+      <script src="{% static 'printery/js/vendors/bootstrap.min.js' %}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+      <script>
+        flatpickr(".flatpickr-input")
+      </script>
+      <!-- <script src="{% static 'printery/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script> -->
+
   </body>
 </html>

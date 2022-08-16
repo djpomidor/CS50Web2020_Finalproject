@@ -94,7 +94,7 @@
                           window.location.href = "/user-cabinet";
                   });
                   // https://getbootstrap.com/docs/5.0/components/modal/#show
-                  fetch('/orders/' + 196)
+                  fetch('/orders/' + {{ new_order.number }})
                   .then(response => response.json())
                   .then(order => {
                     console.log(order);

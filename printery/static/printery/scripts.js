@@ -20,14 +20,9 @@ partsInput.forEach((item) => {
     const element = event.target.id;
     for (var i = 0; i < array.length; i++) {
       x = document.querySelector('#id_form-' + i + '-part_name');
-
-      // x.style.display = 'none';
-
       if (element.includes('id_form-' + i)) {
         x.value = array[i];
       }
-      // element.parentElement.parentElement.previousElementSibling.value = '???';
-
       console.log("!!!!!!!!!!!!!!!!!!!", element)
     }
   })
@@ -43,11 +38,6 @@ partsInput.forEach((item) => {
 // })
 // console.log('1111', partsInput);
 // console.log('2222',matches);
-
-
-
-
-
 
 })
 

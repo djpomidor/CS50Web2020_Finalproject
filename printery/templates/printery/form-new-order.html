@@ -112,10 +112,34 @@
             </div>
             <br>
             {% endfor %}
+            <div class="row gx-4">
+                <div class="col-md-6">
+                    <div>
+                        <label class="form-label">Due date</label>
+                        <div class="input-group datepicker">
+                            <span class="input-group-text pe-2"><i class="bi bi-calendar"></i> </span>
+                            {{ order_form.due_date }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <label class="form-label">Delivery date</label>
+                        <div class="input-group datepicker">
+                            <span class="input-group-text pe-2"><i class="bi bi-calendar"></i> </span>
+                            {{ order_form.delivery_date }}
+                            <!-- <input type="text" class="form-control flatpickr-input" placeholder="Select date" data-input /> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
                 <hr class="my-10" />
-                <div><label class="form-label">Description</label> <textarea class="form-control" placeholder="order description ..." rows="2"></textarea>
+                <div><label class="form-label">Description</label>
+                  <textarea class="form-control" placeholder="order description ..." rows="2"></textarea>
                   </div>
                 <hr class="my-5" />
+
                 <button type="submit" form="order_form" class="btn btn-sm btn-primary"><span>Save</span></button>
             </form>
               </div>

@@ -59,8 +59,13 @@
                           <p><span class="font-bold">Type: </span>{{ new_order.get_type_display }}</p>
                           <p><span class="font-bold">Finish size (mm): </span>{{ new_order.width }} x {{new_order.height}}</p>
                           <p><span class="font-bold">Circulation: </span>{{ new_order.circulation }}</p>
-                          <p><span class="font-bold">Binding: </span>{{ new_order.grt_binding_display }}</p>
-                          <p><span class="font-bold">Date of delivery: </span>123</p>
+                          <p><span class="font-bold">Binding: </span>{{ new_order.get_binding_display }}</p>
+                          {% for form in parts_form %}
+                            <p><span class="font-bold">{{ form.get_part_name_display }}: </span> Pages: {{ form.pages }}, Color: {{ form.get_color_display }}, Paper: {{ form.paper }}</p>
+                          {% endfor %}
+
+                          <p><span class="font-bold">Due date: </span>{{ new_order.due_date }}</p>
+                          <p><span class="font-bold">Date of delivery: </span>{{ new_order.delivery_date }}</p>
                     <!-- </div>
                        <div>
                           <div class="input-group input-group-inline">

@@ -107,9 +107,11 @@ def create_order(request):
                 instance.order_id = order.id
                 instance.save()
 
+            new_order = Order.objects.get(number=order.number)
+
             return render(request, "printery/create-order.html", {
                 'order_form': order_form,
-                'parts_form': formset,
+                'parts_form': Part.objects.filter(order_id=new_order.id),
                 "successful_submit": True,
                 "new_order": order,
             })

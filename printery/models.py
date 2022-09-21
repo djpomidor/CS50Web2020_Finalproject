@@ -109,7 +109,8 @@ class Order(models.Model):
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
-    delivery_date = models.DateTimeField(null=True)
+    due_date = models.DateTimeField(null=True, blank=True)
+    delivery_date = models.DateTimeField(null=True, blank=True)
 
 #    def __str__(self):
 #        return f"{self.number} {self.name}"
@@ -132,12 +133,12 @@ class Order(models.Model):
 
 class Part(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    # NAME_CHOICES =[
-    #     ('BLO', 'Block'),
-    #     ('COV', 'Cover'),
-    #     ('INS', 'Insert'),
-    # ]
-    part_name = models.CharField(blank=True, max_length=3)
+    NAME_CHOICES =[
+        ('BLO', 'Block'),
+        ('COV', 'Cover'),
+        ('INS', 'Insert'),
+    ]
+    part_name = models.CharField(blank=True, max_length=3, choices=NAME_CHOICES)
     pages = models.IntegerField(null=True, blank=True)
     paper = models.ForeignKey(Paper, null=True, on_delete=models.CASCADE, related_name="paper", blank=True)
     COLOR_CHOICES = [

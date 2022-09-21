@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, NumberInput, ModelChoiceField
+from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, NumberInput, ModelChoiceField, DateInput
 from django.db import models
 
 
@@ -106,7 +106,7 @@ class CompanyForm(ModelForm):
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'type', 'circulation', 'binding', 'width', 'height']
+        fields = ['name', 'type', 'circulation', 'binding', 'width', 'height', 'due_date', 'delivery_date']
         widgets = {
             'name': TextInput(attrs={
                 'type': "text",
@@ -144,6 +144,16 @@ class OrderForm(ModelForm):
                 'name': "height",
                 'placeholder': "height"
             }),
+            'due_date': DateInput(attrs={
+                'type': "text",
+                'class': "form-control flatpickr-input",
+                'placeholder': "Select date"
+            }),
+            'delivery_date': DateInput(attrs={
+                'type': "text",
+                'class': "form-control flatpickr-input",
+                'placeholder': "Select date"
+            })
 
             }
 

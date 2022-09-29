@@ -127,8 +127,6 @@ class Order(models.Model):
             "height": self.height,
             "created": self.created.strftime("%b %d %Y, %I:%M %p"),
         }
-
-
 ######################################################################################
 
 class Part(models.Model):
@@ -145,7 +143,6 @@ class Part(models.Model):
         (None, 'Select...'),
         ('4_4', '4+4'),
         ('4_0', '4+0'),
-
     ]
     color = models.CharField(blank=True, max_length=3, choices=COLOR_CHOICES)
 
@@ -160,3 +157,12 @@ class Part(models.Model):
 
     def __str__(self):
         return f"{self.part_name}"
+###############################################################################################
+
+class Printing(models.Model):
+    order = models.ForeignKey(Order, to_field='number', null=True, blank=True, on_delete=models.CASCADE)
+    print_date = models.DateField(null=True, blank=True)
+    day = models.BooleanField(default=True)
+    night = models.BooleanField(default=False)
+    circulation = models.IntegerField(null=True, blank=True)
+    plates_is_done = models.BooleanField(default=False)

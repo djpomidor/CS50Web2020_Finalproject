@@ -160,9 +160,12 @@ class Part(models.Model):
 ###############################################################################################
 
 class Printing(models.Model):
-    order = models.ForeignKey(Order, to_field='number', null=True, blank=True, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete = models.CASCADE, primary_key = True)
     print_date = models.DateField(null=True, blank=True)
     day = models.BooleanField(default=True)
     night = models.BooleanField(default=False)
     circulation = models.IntegerField(null=True, blank=True)
     plates_is_done = models.BooleanField(default=False)
+
+    # def __str__(self):
+    #     return

@@ -14,14 +14,16 @@ from printery.forms import *
 from django.forms import modelformset_factory
 
 # Create your views here.
-
+################################################################################
 def index(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_customer:
         return HttpResponseRedirect(reverse("user-cabinet"))
+    elif request.user.is_authenticated and request.user.is_employee:
+        return HttpResponseRedirect(reverse("manage"))
     else:
-            return render(request, "printery/index.html", {
+        return render(request, "printery/index.html", {
         })
-
+################################################################################
 def login_view(request):
     if request.method == "POST":
 
@@ -36,7 +38,7 @@ def login_view(request):
             if User.objects.get(username = username).is_customer:
                 return HttpResponseRedirect(reverse("user-cabinet"))
             elif User.objects.get(username = username).is_employee:
-                return HttpResponseRedirect(reverse("backside"))
+                return HttpResponseRedirect(reverse("manage"))
             else:
                 return HttpResponseRedirect(reverse("index"))
         else:
@@ -48,12 +50,12 @@ def login_view(request):
         "form": UserForm()
         })
 
-
+################################################################################
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
-
+################################################################################
 def register(request):
     if request.method == "POST":
         user_form = UserForm(data=request.POST)
@@ -65,7 +67,7 @@ def register(request):
             if User.objects.get(username = user_form.cleaned_data.get('username')).is_customer:
                 return HttpResponseRedirect(reverse("user-cabinet"))
             elif User.objects.get(username = user_form.cleaned_data.get('username')).is_employee:
-                return HttpResponseRedirect(reverse("backside"))
+                return HttpResponseRedirect(reverse("manage"))
         else:
             return render(request, "printery/register.html", {
                 "message": user_form.errors, 'user_form': user_form
@@ -74,16 +76,14 @@ def register(request):
         return render(request, "printery/register.html", {
         "user_form": UserForm()
         })
-
+################################################################################
 @login_required(redirect_field_name='index')
 def user_cabinet_view(request):
-    return render(request, "printery/user-cabinet.html", {
-    })
-
-@login_required(redirect_field_name='index')
-def backside(request):
-    return render(request, "printery/backside.html")
-
+    if request.user.is_customer:
+        return render(request, "printery/user-cabinet.html", {
+        })
+    else:
+        return HttpResponseRedirect(reverse("manage"))
 ################################################################################
 
 @login_required(redirect_field_name='index')
@@ -128,7 +128,6 @@ def create_order(request):
             'order_form': OrderForm(),
             'parts_form': PartsFormSet(queryset=Part.objects.none()),
         })
-
 ####################################################################
 
 @csrf_exempt
@@ -141,3 +140,16 @@ def orders_view(request, order_number):
 
     if request.method == "GET":
         return JsonResponse(order.serialize())
+
+#####################################################################
+@login_required(redirect_field_name='index')
+def manage(request):
+    if request.user.is_customer:
+        return HttpResponseRedirect(reverse("user-cabinet"))
+    return render(request, "printery/manage.html")
+
+################################################################################
+
+@login_required(redirect_field_name='index')
+def print_schedule(request):
+    return render(request, "printery/manage.html")

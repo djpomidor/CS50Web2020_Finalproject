@@ -14,13 +14,13 @@ class UserForm(ModelForm):
     })
     )
 
-    company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label="(Nothing)", widget=forms.Select(attrs={
-        'class': "form-select",
-        'placeholder': "Choose",
-        'id': "floatingInput",
-        'autocomplete': "off"
-    })
-    )
+    # company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label="(Nothing)", widget=forms.Select(attrs={
+    #     'class': "form-select",
+    #     'placeholder': "Choose",
+    #     'id': "floatingInput",
+    #     'autocomplete': "off"
+    # })
+    # )
 #    def __init__(self, *args, **kwargs):
 #        super().__init__(*args, **kwargs)
 #        self.fields['name'].queryset = Company.objects.all()
@@ -36,12 +36,13 @@ class UserForm(ModelForm):
                 'name': "username",
                 'placeholder': "Username"
             }),
-#            'company': forms.Select(attrs={
-#                'type': "text",
-#                'class': "form-select",
-#                'id': "floatingInput",
-#                'placeholder': "Chooooos"
-#            }),
+            'company': TextInput(attrs={
+               'type': "text",
+               'class': "form-control",
+               'id': "floatingInput",
+               'name': "company",
+               'placeholder': "Company"
+           }),
             'first_name': TextInput(attrs={
                 'type': "text",
                 'class': "form-control",
@@ -106,8 +107,12 @@ class CompanyForm(ModelForm):
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'type', 'circulation', 'binding', 'width', 'height', 'due_date', 'delivery_date']
+        fields = ['number', 'name', 'type', 'circulation', 'binding', 'width', 'height', 'due_date', 'delivery_date']
         widgets = {
+            'number': TextInput(attrs={
+                'type': "text",
+                'readonly': "readonly",
+            }),
             'name': TextInput(attrs={
                 'type': "text",
                 'class': "form-control",
@@ -117,7 +122,7 @@ class OrderForm(ModelForm):
             'type': forms.Select(attrs={
                 'type': "text",
                 'class': "form-select",
-                'name': "name",
+                'name': "type",
                 'placeholder': "Book, magazin, ets."
             }),
             'circulation': TextInput(attrs={

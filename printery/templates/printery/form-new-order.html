@@ -15,41 +15,35 @@
       <!-- Start form -->
             <form id="order_form" action="{% url 'create-order' %}" method="post">
                 {% csrf_token %}
-
                 <div class="row gx-4 gy-5 pb-5">
+                  <div class="">
+                    Order ID: {{ order_form.number }}
+                  </div>
                   <div class="col-md-6"><label class="form-label">Name</label> {{ order_form.name}}
                     <span class="d-block mt-2 text-sm text-muted">Short name of the product</span>
                   </div>
-
-
                   <div class="col-md-6"><label class="form-label">Type</label> {{ order_form.type}}
                     <span class="d-block mt-2 text-sm text-muted">Select type of product</span>
                   </div>
                 </div>
-                <hr class="my-5" />
-
+                <!-- <hr class="my-5" /> -->
                 <div class="row gx-4 gy-5 pb-5">
                   <div class="col-md-6"><label class="form-label">Circulation</label>
                     {{ order_form.circulation}}
                   </div>
-
                   <div class="col-md-6"><label class="form-label">Binding</label>
                     {{ order_form.binding}}
                   </div>
                 </div>
-                <hr class="my-5" />
-
+                <!-- <hr class="my-5" /> -->
                 <div class="row gx-4 gy-5">
-
                   <div class="col">
                     <div>
                       <label class="form-label">Width (mm)</label>
                       {{ order_form.width}}
                     </div>
                   </div>
-
                   <div class="cross text-xs col-sm-1 gy-18" ></div>
-
                   <div class="col">
                     <div>
                       <label class="form-label">Height (mm)</label>
@@ -57,7 +51,8 @@
                     </div>
                   </div>
                 </div>
-                <hr class="my-10" />
+                <br>
+                <!-- <hr class="my-10" /> -->
 
 <!-- ************************************************************** -->
 
@@ -70,43 +65,34 @@
               </div>
             <div class="card-body pb-0">
               <button type="button" class="part-btn-close float-end" data-bs-toggle="collapse" data-bs-target="#partCard-{%  cycle '1' '2' '3' %}" aria-expanded="true" aria-controls="partCard-{%  cycle '0' '1' '2' %}"></button>
-
               <div class="d-flex justify-content-between">
                 <h5 style="text-align: center;">
                   {% cycle 'Block' 'Cover' 'Insert' %}
                 </h5>
-
               </div>
               <div class="row">
-
-
                 <div class="">
                     {{ form.part_name }}
                 </div>
-
                 <div class="col gy-5">
                 <div>
                   <label class="form-label">Number of pages </label>
                     {{ form.pages}}
                 </div>
                 </div>
-
                 <div class="col-sm-3 gy-5">
                 <div>
-                  <label class="form-label">Colour</label>
+                  <label class="form-label">Printing color</label>
                     {{ form.color}}
                 </div>
                 </div>
-
                 <div class="col gy-5">
                 <div>
                   <label class="form-label">Paper</label>
                     {{ form.paper}}
                 </div>
                 </div>
-
               </div>
-
             </div><br>
             </div>
             </div>

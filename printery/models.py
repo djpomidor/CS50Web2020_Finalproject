@@ -16,12 +16,8 @@ class User(AbstractUser):
         return f"{self.username}"
 
 # class Employee(models.Model):
-#     first_name = models.CharField(max_length=64)
 #     middle_name = models.CharField(max_length=64)
-#     last_name = models.CharField(max_length=64)
 #     position = models.CharField(max_length=64)
-#     phone_number = models.IntegerField()
-#     email = models.CharField(max_length=64)
 #     def __str__(self):
 #         return f"{self.first_name}"
 
@@ -49,6 +45,7 @@ class Paper(models.Model):
         (None, 'Select...'),
         ('GL', 'Glossy'),
         ('MAT', 'Matte'),
+        ('SIL', 'Silk'),
         ('OFF', 'Offset'),
     ]
     type = models.CharField(max_length=3,
@@ -56,8 +53,12 @@ class Paper(models.Model):
         )
     class Density(models.IntegerChoices):
         D80 = 80, '80 gr/m2'
+        D100 = 100, '100 gr/m2'
+        D105 = 105, '105 gr/m2'
+        D115 = 115, '115 gr/m2'
         D120 = 120, '120 gr/m2'
         D150 = 150, '150 gr/m2'
+        D170 = 170, '170 gr/m2'
         D200 = 200, '200 gr/m2'
         D250 = 250, '250 gr/m2'
     density = models.IntegerField(choices=Density.choices)
@@ -66,7 +67,7 @@ class Paper(models.Model):
     manufacturer = models.ManyToManyField(Company, blank=True, related_name="made_by")
 
     def __str__(self):
-        return f"{self.name} {self.type} {self.density}"
+        return f"{self.name} {self.get_type_display()} {self.density} gr/m2"
 
 ###########################################################################
 
@@ -137,12 +138,13 @@ class Part(models.Model):
         ('INS', 'Insert'),
     ]
     part_name = models.CharField(blank=True, max_length=3, choices=NAME_CHOICES)
-    pages = models.IntegerField(null=True, blank=True)
+    pages = models.IntegerField()
     paper = models.ForeignKey(Paper, null=True, on_delete=models.CASCADE, related_name="paper", blank=True)
     COLOR_CHOICES = [
         (None, 'Select...'),
-        ('4_4', '4+4'),
-        ('4_0', '4+0'),
+        ('4_4', '4(CMYK)+4(CMYK)'),
+        ('4_0', '4(CMYK)+0'),
+        ('1_1', '1(Black)+1(Black)'),
     ]
     color = models.CharField(blank=True, max_length=3, choices=COLOR_CHOICES)
 
@@ -167,5 +169,8 @@ class Printing(models.Model):
     circulation = models.IntegerField(null=True, blank=True)
     plates_is_done = models.BooleanField(default=False)
 
-    # def __str__(self):
-    #     return
+    def __str__(self):
+        if self.day:
+            return f"{self.print_date} (Day): №{self.order.number}"
+        else:
+            return f"{self.print_date} (Night): №{self.order.number}"

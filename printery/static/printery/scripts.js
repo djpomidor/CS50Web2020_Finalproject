@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // };
 
 const partsInput = document.querySelectorAll('input[id^="id_form-"].form-control');
-console.log('1111', partsInput);
+console.log('!partsInput', partsInput);
 partsInput.forEach((item) => {
   item.addEventListener("change", function() {
     let array = ['BLO', 'COV', 'INS'];

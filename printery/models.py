@@ -24,7 +24,7 @@ class User(AbstractUser):
 #########################################################################
 
 class Company(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(unique=True, max_length=64)
     address = models.CharField(blank=True, max_length=64)
     city = models.CharField(blank=True, max_length=25)
     postal_code = models.IntegerField(blank=True, null=True)

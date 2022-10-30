@@ -32,14 +32,14 @@ class UserForm(ModelForm):
             'username': TextInput(attrs={
                 'type': "text",
                 'class': "form-control",
-                'id': "floatingInput",
+                'id': "floatingUsername",
                 'name': "username",
                 'placeholder': "Username"
             }),
             'company': TextInput(attrs={
                'type': "text",
                'class': "form-control",
-               'id': "floatingInput",
+               'id': "floatingCompany",
                'name': "company",
                'placeholder': "Company"
            }),

@@ -1,22 +1,58 @@
 {% extends "printery/layout.html" %}
 
 {% block body %}
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('DOMContentLoaded', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+
     <div class="text-center">
-    {% if message %}
-        <div class="alert alert-warning" role="alert">{{ user_form.errors }} </div>
-    {% endif %}
+    <!-- {% if user_form.errors or company_form.errors %}
+        <div class="alert alert-warning" role="alert">{{ user_form.errors }} {{ company_form.errors }}</div>
+    {% endif %} -->
     <div class="form-signin">
-    <form action="{% url 'register' %}" method="post">
+    <form class="needs-validation" action="{% url 'register' %}" method="post" novalidate>
         {% csrf_token %}
         <h1 class="h3 mb-3 fw-normal">Register</h1>
+
         <div class="form-floating">
             {{ user_form.username }}
-            <label for="floatingInput">Username</label>
+            <label for="floatingUsername">Username</label>
+              {% for error in user_form.username.errors %}
+              <div class="invalid-feedback d-block">
+                {{error}}
+              </div>
+              {% endfor %}
         </div>
+
         <div class="form-floating">
-        {{ user_form.company }}
-        <label for="floatingInput">Company</label>
+        {{ company_form.name }}
+        <label for="floatingCompany">Company</label>
+          {% for error in company_form.name.errors %}
+            <div class="invalid-feedback d-block">
+              {{ error }}
+            </div>
+          {% endfor %}
         </div>
+
         <div class="form-floating">
             {{ user_form.email }}
             <label for="floatingInput">Email Address</label>
@@ -31,6 +67,9 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
+
+
+
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>
   </div>

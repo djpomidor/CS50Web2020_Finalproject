@@ -57,10 +57,14 @@ def logout_view(request):
 
 ################################################################################
 def register(request):
+    # CompanyFormSet = modelformset_factory(Company, form=CompanyForm, fields=('name',))
     if request.method == "POST":
         user_form = UserForm(data=request.POST)
-        if user_form.is_valid():
+        company_form = CompanyForm(data=request.POST)
+        if all([user_form.is_valid(), company_form.is_valid()]):
+            company_form.save()
             user = user_form.save(commit=False)
+            user.company = Company.objects.get(name = company_form.cleaned_data.get('name'))
             user.set_password(user.password)
             user.save()
             login(request, user)
@@ -69,12 +73,20 @@ def register(request):
             elif User.objects.get(username = user_form.cleaned_data.get('username')).is_employee:
                 return HttpResponseRedirect(reverse("manage"))
         else:
+            for field in user_form.errors:
+                user_form[field].field.widget.attrs['class'] += ' is-invalid'
+            for field in company_form.errors:
+                company_form[field].field.widget.attrs['class'] += ' is-invalid'
             return render(request, "printery/register.html", {
-                "message": user_form.errors, 'user_form': user_form
+                # "message": user_form.errors,
+                "user_form": user_form,
+                "company_form": company_form,
+                # "message_company": company_form.errors,
             })
     else:
         return render(request, "printery/register.html", {
-        "user_form": UserForm()
+        "user_form": UserForm(),
+        "company_form": CompanyForm(),
         })
 ################################################################################
 @login_required(redirect_field_name='index')

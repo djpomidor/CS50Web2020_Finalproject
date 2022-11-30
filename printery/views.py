@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django import forms
+import json
 
 from printery.models import *
 from printery.forms import *
@@ -144,7 +145,27 @@ def create_order(request):
 
 @csrf_exempt
 @login_required
-def orders_view(request, order_number):
+def orders_view(request, order_number = 0):
+    if not order_number:
+        orders = Order.objects.filter(owner=request.user).order_by("-created").all()
+        # parts = Part.objects.filter(order_id=[order.id for order in orders])
+        # print("!!!", parts)
+
+        # for order in orders:
+        #     for part in Part.objects.filter(order_id=order.id):
+        #         # order | part
+        #         resp.append(order.serialize() | part.serialize())
+
+
+        # def ser(order):
+        #     for part in Part.objects.filter(order_id=order.id):
+        #         print("::::::::::", order.serialize() | part.serialize())
+        #         return order.serialize()
+        # print("!!!!!!", [order.serialize() for order in orders])
+        # return JsonResponse([ser(order) for order in orders], safe=False)
+
+        return JsonResponse([order.serialize() for order in orders], safe=False)
+
     try:
         order = Order.objects.get(owner=request.user, number=order_number)
     except Order.DoesNotExist:

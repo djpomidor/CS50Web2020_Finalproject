@@ -13,4 +13,5 @@ urlpatterns = [
 
     #api root
     path("orders/<int:order_number>", views.orders_view, name="orders-view"),
+    path("orders/all", views.orders_view, name="orders-view"),
 ]

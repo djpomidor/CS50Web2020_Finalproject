@@ -69,6 +69,16 @@ class Paper(models.Model):
     def __str__(self):
         return f"{self.name} {self.get_type_display()} {self.density} gr/m2"
 
+    def serialize(self):
+        return {
+            "name": self.name,
+            "type": self.type,
+            "density": self.density,
+            "width": self.width,
+            "height": self.height,
+            # "manufacturer": self.manufacturer
+        }
+
 ###########################################################################
 
 class Order(models.Model):
@@ -117,17 +127,36 @@ class Order(models.Model):
 #        return f"{self.number} {self.name}"
 
     def serialize(self):
+        try:
+            block = Part.objects.get(order_id=self.id, part_name='BLO').serialize()
+        except Part.DoesNotExist:
+            block = ""
+        try:
+            cover = Part.objects.get(order_id=self.id, part_name='COV').serialize()
+        except Part.DoesNotExist:
+            cover = ""
+        try:
+            insert = Part.objects.get(order_id=self.id, part_name='INS').serialize()
+        except Part.DoesNotExist:
+            insert = "" 
+
         return {
             "number": self.number,
             "name": self.name,
             "owner": [user.last_name for user in self.owner.all()],
-            "type": self.type,
+            "type": self.get_type_display(),
             "circulation": self.circulation,
             "binding": self.binding,
             "width": self.width,
             "height": self.height,
+            "block": block,
+            "cover": cover,
+            "insert": insert,
             "created": self.created.strftime("%b %d %Y, %I:%M %p"),
+            "due_date": self.due_date.strftime("%b %d %Y, %I:%M %p"),
+            "delivery_date": self.delivery_date.strftime("%b %d %Y, %I:%M %p")            
         }
+
 ######################################################################################
 
 class Part(models.Model):
@@ -159,6 +188,18 @@ class Part(models.Model):
 
     def __str__(self):
         return f"{self.part_name}"
+
+    def serialize(self):
+        return {
+            "part_name": self.part_name,
+            "color": self.color,
+            "uflak": self.uflak,
+            "order": self.order.id,
+            "pages": self.pages,
+            "paper": self.paper.serialize()
+        }
+
+
 ###############################################################################################
 
 class Printing(models.Model):

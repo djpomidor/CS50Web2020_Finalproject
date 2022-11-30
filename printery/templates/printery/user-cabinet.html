@@ -131,43 +131,45 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-8 table-responsive"">
+    
 
-                  <table class="table table-hover table-nowrap">
-<thead>
-<tr>
-  <th scope="col">#</th>
-  <th scope="col">First</th>
-  <th scope="col">Last</th>
-  <th scope="col">Handle</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <th scope="row">1</th>
-  <td>Mark</td>
-  <td>Otto</td>
-  <td>@mdo</td>
-</tr>
-<tr>
-  <th scope="row">2</th>
-  <td>Jacob</td>
-  <td>Thornton</td>
-  <td>@fat</td>
-</tr>
-<tr>
-  <th scope="row">3</th>
-  <td>Larry</td>
-  <td>the Bird</td>
-  <td>@twitter</td>
-</tr>
-</tbody>
-</table>
-
+    
 <!-- Latest orders table -->
 <div class="card">
     <div class="card-header border-bottom"><h5 class="mb-0">Latest orders</h5></div>
-    <div class="table-responsive">
-        <table class="table table-hover table-nowrap">
+    <div id="orders" class="table-responsive">
+         <!-- <table class="table table-hover table-nowrap">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table> -->
+
+        <!-- <table class="table table-hover table-nowrap">
             <thead class="table-light">
                 <tr>
                     <th scope="col">Name</th>
@@ -315,15 +317,95 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 </div>
 <!-- End of Latest orders table -->
 
-              </div>
-              {% include 'printery/user-sidebar-right.html' %}
-              </div>
-              </div>
+<script type="text/babel">
+
+function Order(props) {
+    return (
+        <tr id={props.id} >
+            <th>{props.number}</th>
+            <th>{props.name}, {props.type}</th>
+            <th>{props.width} x {props.height}</th>
+            <th>{props.circulation}</th>
+            <th>{props.due_date}</th>
+        </tr>
+    )
+}
+
+function OrdersList({orders, title}) {
+    return (
+        <table className="table table-hover table-nowrap">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Size</th>
+              <th scope="col">Circulation</th>
+              <th scope="col">Due Date</th>
+            </tr>
+            </thead>
+            <tbody>
+                {orders.map((order, i) => (
+                    <Order key={i} {...order}/>
+                ))}
+
+
+            </tbody>
+        </table>    
+        )
+    }
+
+function GetOrder(number){
+    fetch('/orders/' + number)
+    .then(response => response.json())
+    .then(data => {
+        ReactDOM.render(<OrdersList orders={data} title="Latest orders!!"/>,document.getElementById("orders"));
+
+    })
+};
+
+(async () => {
+const data = await GetOrder('all')
+console.log(data)
+})()
+
+    // async function GetOrder(number) {
+    //     let order = await fetch('/orders/' + number);
+    //     let myText = await order.json();
+    //  console.log(myText);
+    //  return myText;
+    // }
+
+    // const GetOrder = async () => {
+    //     try {
+    //         let res = await fetch('/orders/30');
+    //         let { results } = res.json();
+    //         console.log("!!!!!!", results);
+    //         } 
+    //         catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    
+    // console.log("!!!!data!!!!", data)
+    
+
+
+// ReactDOM.render(<OrdersList order={data} title="Latest orders"/>,document.getElementById("orders"));
+
+</script>  
+
+
+
+    </div>
+    {% include 'printery/user-sidebar-right.html' %}
+    </div>
+    </div>
 
               <!-- Create a new order offcanvas
               ********************************************         -->

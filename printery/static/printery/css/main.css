@@ -10908,7 +10908,7 @@ fieldset:disabled .btn {
 }
 .table tbody th,
 .table td {
-    /* font-size: 0.8125rem; */
+    font-size: 0.8125rem;
 }
 .table td {
     white-space: nowrap;

@@ -1,1 +1,7 @@
-{"version":3,"sourceRoot":"","sources":["../scss/pantone.scss"],"names":[],"mappings":"AAEA;EACC;EACA;;;AAGD;EACC;;;AAGD;EACC","file":"pantone.css"}
+{
+"version": 3,
+"mappings": "AAEA,SAAU;EACT,KAAK,EAAE,gBAAkB;EACzB,gBAAgB,EAAE,wBAA0B;;AAG7C,GAAG;EACF,gBAAgB,EAAE,KAAK;;AAGxB,GAAG;EACF,gBAAgB,EAAE,KAAK",
+"sources": ["../scss/pantone.scss"],
+"names": [],
+"file": "pantone.css"
+}

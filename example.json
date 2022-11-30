@@ -1,0 +1,90 @@
+[
+    {
+        "number": 28, 
+        "name": "Super paper", 
+        "owner": ["Bazilian"], 
+        "type": "CL", 
+        "circulation": null, 
+        "binding": "", 
+        "width": null, "
+        height": null, 
+        "created": "Nov 05 2022, 05:49 PM", 
+        "block": "", "cover": "", "insert": ""}, 
+        
+    {
+        "number": 27, 
+        "name": "Book", 
+        "owner": ["Bazilian"], 
+        "type": "BK", 
+        "circulation": 1000, 
+        "binding": "GLU", 
+        "width": 120,
+        "height": 297, 
+        "created": "Nov 05 2022, 02:50 PM", 
+        "block": {"part_name": "BLO", "color": "4_4", "uflak": false, "order": 332, "pages": 128, "paper": {
+            
+        }}, 
+        "cover": {"part_name": "COV", "color": "4_4", "uflak": false, "order": 332, "pages": 4}, 
+        "insert": ""}, 
+        
+        {"number": 13, "name": "", "owner": ["Bazilian"], "type": "", "circulation": null, "binding": "", "width": null, "height": null, "created": "Oct 10 2022, 12:58 PM", "block": "", "cover": "", "insert": ""}]
+
+
+
+[
+    {
+        "number": 28, 
+        "name": "Super paper", 
+        "owner": ["Bazilian"], 
+        "type": "CL", 
+        "circulation": null, 
+        "binding": "", 
+        "width": null, 
+        "height": null, 
+        "created": "Nov 05 2022, 05:49 PM",
+        "block": {
+            "part_name": "BLO",
+            "order": 34,
+            "pages": 65,
+            "paper": {
+                "name": "Omega",
+                "density": 120,
+                "type": "GL"
+            }
+        },
+        "cover": {
+            "part_name": "COV",
+            "order": 34,
+            "pages": 4,
+            "paper": {
+                "name": "Omega",
+                "density": 120,
+                "type": "GL"
+            }
+        }
+    },
+        
+    {
+        "number": 27, 
+        "name": "Book", 
+        "owner": ["Bazilian"], 
+        "type": "BK", 
+        "circulation": 1000, 
+        "binding": "GLU", 
+        "width": 120, 
+        "height": 297, 
+        "created": "Nov 05 2022, 02:50 PM"
+    },
+        
+    {
+        "number": 13, 
+        "name": "", 
+        "owner": ["Bazilian"], 
+        "type": "", 
+        "circulation": null, 
+        "binding": "", 
+        "width": null, 
+        "height": null, 
+        "created": "Oct 10 2022, 12:58 PM"
+    }
+]

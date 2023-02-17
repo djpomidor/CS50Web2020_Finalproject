@@ -324,9 +324,15 @@
 
 <script type="text/babel">
 
+    // import React, { useState } from "react";
+
+function showOrderDetails() {
+    console.log("SSSSSSSSSSSSSSS")
+}
+    
 function Order(props) {
     return (
-        <tr id={props.id} >
+        <tr id={props.number} onClick={showOrderDetails}>
             <th>{props.number}</th>
             <th>{props.name}, {props.type}</th>
             <th>{props.width} x {props.height}</th>
@@ -350,7 +356,7 @@ function OrdersList({orders, title}) {
             </thead>
             <tbody>
                 {orders.map((order, i) => (
-                    <Order key={i} {...order}/>
+                    <Order key={i} {...order} onClick={showOrderDetails}/>
                 ))}
 
 
